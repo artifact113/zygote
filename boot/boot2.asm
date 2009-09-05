@@ -1,32 +1,56 @@
-;-----------------------
-;2nd Stage Boot Loader -
-;-----------------------
+;*********************************************
+;	Stage2.asm
+;		- Second Stage Bootloader
+;
+;	Operating Systems Development Series
+;*********************************************
 
-bits 16
+org 0x0					; offset to 0, we will set segments later
 
-org 0x00
+bits 16					; we are still in real mode
 
-msg2 db "Secong Stage Bootloader", 0
+; we are loaded at linear address 0x10000
 
-jmp start
+jmp main				; jump to main
 
-Print2:
-        lodsb
-        or al, al
-        jz PrintDone2
-        mov ah, 0xe
-        int 10h
-        jmp Print2
+;*************************************************;
+;	Prints a string
+;	DS=>SI: 0 terminated string
+;************************************************;
 
-PrintDone2:
-        ret
+Print:
+	lodsb					; load next byte from string from SI to AL
+	or			al, al		; Does AL=0?
+	jz			PrintDone	; Yep, null terminator found-bail out
+	mov			ah,	0eh	; Nope-Print the character
+	int			10h
+	jmp			Print		; Repeat until null terminator found
+PrintDone:
+	ret					; we are done, so return
 
-start:
-        mov si, msg2             ;move the start address of string to si.
-        call Print2
+;*************************************************;
+;	Second Stage Loader Entry Point
+;************************************************;
 
-        cli                     ;clear the interrupts.
-        hlt                     ;halt the system.
+main:
+	cli					; clear interrupts
+	push			cs		; Insure DS=CS
+	pop			ds
+	sti
+
+	mov			si, Msg
+	call			Print
+
+	xor ax, ax
+	int 16h	
+
+	;hlt					; hault the syst
+
+;*************************************************;
+;	Data Section
+;************************************************;
+
+Msg	db	"Preparing to load operating system...",13,10,0
 
 times 512 - ($ - $$) db 0
 
