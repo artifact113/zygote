@@ -13,11 +13,20 @@ bits 16					; we are still in real mode
 
 jmp main				; jump to main
 
+;*************************************************;
+;       Data Section
+;************************************************;
+
+LoadingMsg      db      "Preparing to load operating system...",13,10,0
+
+
 ;*******************************************************
 ;	Preprocessor directives
 ;*******************************************************
 
 %include "stdio.h"			; basic i/o routines
+%include "gdt.h"			; Gdt routines
+%include "A20.h"
 
 ;*************************************************;
 ;	Second Stage Loader Entry Point
@@ -45,11 +54,47 @@ main:
 	mov	si, LoadingMsg
 	call	Puts16
 
-;*************************************************;
-;	Data Section
-;************************************************;
+	;-------------------------------;
+	;   Install our GDT		;
+	;-------------------------------;
 
-LoadingMsg	db	"Preparing to load operating system...",13,10,0
+	call	InstallGDT		; install our GDT
+
+	;-------------------------------;
+	;   Enable A20			;
+	;-------------------------------;
+
+	call	EnableA20_SysControlA
+
+	;-------------------------------;
+	;   Go into pmode		;
+	;-------------------------------;
+	
+	cli		; clear interrupts
+	mov eax, cr0	; set bit 0 in cr0 -- enters pmode
+	or eax, 1
+	mov cr0, eax
+
+	jmp CODE_DESC:Stage3	; far jump to fix CS
+
+;******************************************************
+;	ENTRY POINT FOR STAGE 3
+;******************************************************
+
+bits 32
+
+Stage3:
+
+	;-------------------------------;
+	;   Set registers		;
+	;-------------------------------;
+
+	mov ax,  DATA_DESC	; set data segments to data selector (0x10)
+	mov ds,  ax
+	mov ss,  ax
+	mov es,  ax
+	mov esp, 90000h		; stack begins from 90000h
+
 
 times 512 - ($ - $$) db 0
 
