@@ -34,7 +34,7 @@ Reset:
 
 Read:
         mov             ah, 0x02                                ; function 2
-        mov             al, 1                                   ; read 1 sector
+        mov             al, 5                                   ; read 1 sector
         mov             ch, 0                                   ; we are reading the second sector past us, so its still on track 1
         mov             cl, 2                                   ; sector to read (The second sector)
         mov             dh, 0                                   ; head number
