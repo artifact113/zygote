@@ -5,13 +5,13 @@
 ;	Operating Systems Development Series
 ;*********************************************
 
-org 0x0500					; offset to 0, we will set segments later
+;org 0x0500					; offset to 0, we will set segments later
 
 bits 16					; we are still in real mode
 
-; we are loaded at linear address 0x10000
+; we are loaded at linear address 0x0500
 
-jmp main				; jump to main
+jmp smain				; jump to main
 
 ;*************************************************;
 ;       Data Section
@@ -32,7 +32,7 @@ LoadingMsg      db      "Preparing to load operating system...",13,10,0
 ;	Second Stage Loader Entry Point
 ;************************************************;
 
-main:
+smain:
 
 	;-------------------------------;
 	;   Setup segments and stack	;
@@ -82,7 +82,8 @@ main:
 ;******************************************************
 
 bits 32
-
+global start
+extern _main
 Stage3:
 
 	;-------------------------------;
@@ -102,6 +103,8 @@ Stage3:
 	call		ClrScr32
 	mov		ebx, msg
 	call		Puts32
+start:
+	;call _main
 
 loop:
 	;xor ax,ax
@@ -112,5 +115,5 @@ msg db  0x0A, 0x0A, 0x0A, "               <[ Zygote OS 0.01 ]>"
     db  0x0A, 0x0A,             "           Basic 32 bit Operating System", 0
 
 
-times 512 - ($ - $$) db 0
+;times 512 - ($ - $$) db 0
 
