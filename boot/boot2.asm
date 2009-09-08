@@ -95,6 +95,22 @@ Stage3:
 	mov es,  ax
 	mov esp, 90000h		; stack begins from 90000h
 
+	;---------------------------------------;
+	;   Clear screen and print success	;
+	;---------------------------------------;
+
+	call		ClrScr32
+	mov		ebx, msg
+	call		Puts32
+
+loop:
+	;xor ax,ax
+	;int 16h
+jmp loop
+
+msg db  0x0A, 0x0A, 0x0A, "               <[ Zygote OS 0.01 ]>"
+    db  0x0A, 0x0A,             "           Basic 32 bit Operating System", 0
+
 
 times 512 - ($ - $$) db 0
 
