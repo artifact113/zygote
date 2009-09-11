@@ -5,4 +5,4 @@
 [http://zygote.googlecode.com/files/vmconfig.PNG]
 
 = After Booting =
-[http://zygote.googlecode.com/files/vmconfig.PNG]
+[http://zygote.googlecode.com/files/afterboot.PNG]
