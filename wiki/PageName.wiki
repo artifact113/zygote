@@ -1,6 +1,6 @@
-#summary One-sentence summary of this page.
+#output screen shots r20.
 
-= SNAP SHOTS =
+= SCREEN SHOTS =
 = vmware configuration =
 [http://zygote.googlecode.com/files/vmconfig.PNG]
 
