@@ -2,7 +2,7 @@
 ;	Stage2.asm
 ;		- Second Stage Bootloader
 ;
-;	Operating Systems Development Series
+;
 ;*********************************************
 
 org 0x0500					; offset to 0, we will set 
@@ -131,7 +131,7 @@ Stage3:
 	;mov		ebx, msg
 	;call		Puts32
 
-	jmp CODE_DESC:0x8000
+	jmp CODE_DESC:0x8000	;jump to the C main
 
 msg db  0x0A, 0x0A, 0x0A, "               <[ Zygote OS 0.01 ]>"
     db  0x0A, 0x0A,             "           Basic 32 bit Operating System", 0
