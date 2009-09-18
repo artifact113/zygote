@@ -25,9 +25,9 @@ LoadingMsg      db      "Preparing to load operating system...",13,10,0
 ;	Preprocessor directives
 ;*******************************************************
 
-%include "stdio.h"			; basic i/o routines
-%include "gdt.h"			; Gdt routines
-%include "A20.h"
+%include "boot/stdio.inc"			; basic i/o routines
+%include "boot/gdt.inc"			; Gdt routines
+%include "boot/A20.inc"
 
 ;*************************************************;
 ;	Second Stage Loader Entry Point
