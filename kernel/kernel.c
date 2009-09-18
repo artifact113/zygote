@@ -1,3 +1,5 @@
+#define __packed
+
 void k_clear_screen()
 {
 	unsigned int* vidmem = (unsigned int*) 0xb8000;
