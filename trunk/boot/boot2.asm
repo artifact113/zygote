@@ -42,9 +42,9 @@ Reset1:
 
 Read1:
         mov             ah, 0x02                                ; function 2
-        mov             al, 10                                   ; read 1 sector
+        mov             al, 20                                  ; read 10 sector
         mov             ch, 0                                   ; we are reading the second sector past us, so its still on track 1
-        mov             cl, 4                                   ; sector to read (The second sector)
+        mov             cl, 4                                   ; sector to read (From fourth sector)
         mov             dh, 0                                   ; head number
         mov             dl, 0                                   ; drive number. Remember Drive 0 is floppy drive.
         int             0x13                                    ; call BIOS - Read the sector

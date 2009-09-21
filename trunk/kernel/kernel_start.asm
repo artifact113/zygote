@@ -5,4 +5,3 @@
 start:
   call _k_main
 
-jmp $
