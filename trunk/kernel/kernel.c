@@ -2,7 +2,6 @@
 #include "../arch/x86/cpu.h"
 #include "../include/hw_init.h"
 #include "display.h"
-#include "print.h"
 #include "exception.h"
 
 int _k_main()
