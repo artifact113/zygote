@@ -10,7 +10,6 @@
 //============================================================================
 
 #include "../../include/hw_init.h"
-#include "../../kernel/print.h"
 #include "idt.h"
 #include "pit.h"
 #include "pic.h"
