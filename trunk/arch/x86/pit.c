@@ -51,12 +51,13 @@ void i86_pit_irq ();
 //!	pit timer interrupt handler
 void i86_pit_irq () {
 
-	asm ("add $16, %esp");
+	asm ("add $28, %esp");
 	asm ("pusha");
 
 	//! increment tick count
 	_pit_ticks++;
-k_printf("pit irq handler");
+                GotoXY (0,16);
+                Printf ("Current tick count: %i", get_tick_count());
 	//! tell hal we are done
 	interruptdone(0);
 

@@ -8,8 +8,8 @@
 ////****************************************************************************
 
 #include "idt.h"
-#include "../../kernel/print.h"
 #include "../../include/string.h"
+#include "../../kernel/display.h"
 
 //! interrupt descriptor table
 static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];
@@ -36,8 +36,11 @@ static void idt_install ()
 static void i86_default_handler (void)
 {
 
-    k_printf("Exception : Executing Default handler",0xA);
-    for(;;);
+	ClrScr (0x18);
+	GotoXY (0,0);
+	SetColor (0x1e);
+	Puts ("*** i86_default_handler: Unhandled Exception");
+    	for(;;);
 }
 
 //! installs a new interrupt handler
@@ -83,6 +86,5 @@ int i86_idt_initialize (uint16_t codeSel)
     //! install our idt
     idt_install ();
 
-k_printf("init IDT Done!!!");
     return 0;
 }

@@ -1,11 +1,40 @@
-//****************************************************************************
-////**
-////**    [string.c]
-////**    - [Standard C string routine implimentation]
-////**
-////****************************************************************************
 
-#include "../include/size_t.h"
+//****************************************************************************
+//**
+//**    [string.c]
+//**    - [Standard C string routine implimentation]
+//**
+//****************************************************************************
+//============================================================================
+//    IMPLEMENTATION HEADERS
+//============================================================================
+
+#include "../include/string.h"
+
+//! copies string s2 to s1
+char *strcpy(char *s1, const char *s2)
+{
+    char *s1_p = s1;
+    while (*s1++ = *s2++);
+    return s1_p;
+}
+
+//! returns length of string
+size_t strlen ( const char* str ) {
+
+	size_t	len=0;
+	while (str[len++]);
+	return len;
+}
+
+//! copies count bytes from src to dest
+void *memcpy(void *dest, const void *src, size_t count)
+{
+    const char *sp = (const char *)src;
+    char *dp = (char *)dest;
+    for(; count != 0; count--) *dp++ = *sp++;
+    return dest;
+}
 
 //! sets count bytes of dest to val
 void *memset(void *dest, char val, size_t count)
@@ -14,3 +43,21 @@ void *memset(void *dest, char val, size_t count)
 	for( ; count != 0; count--, temp[count] = val);
 	return dest;
 }
+
+//! sets count bytes of dest to val
+unsigned short *memsetw(unsigned short *dest, unsigned short val, size_t count)
+{
+    unsigned short *temp = (unsigned short *)dest;
+    for( ; count != 0; count--)
+		*temp++ = val;
+    return dest;
+}
+
+//============================================================================
+//    INTERFACE CLASS BODIES
+//============================================================================
+//****************************************************************************
+//**
+//**    END[String.c]
+//**
+//****************************************************************************

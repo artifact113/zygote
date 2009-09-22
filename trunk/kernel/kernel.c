@@ -1,13 +1,13 @@
 
 #include "../arch/x86/cpu.h"
 #include "../include/hw_init.h"
+#include "display.h"
 #include "print.h"
 #include "exception.h"
 
 int _k_main()
 {
 	int i;
-	k_clear_screen();
 
 	/*Initialize hardware drivers*/
 	hw_initialize();
@@ -32,18 +32,23 @@ int _k_main()
 	setvect (18, machine_check_abort);
 	setvect (19, simd_fpu_fault);
 
-	k_printf("   ************************************************");
-	k_printf("   *                                              *");
-	k_printf("   *          Welcome to Zygote OS.               *");
-	k_printf("   *                                              *");
-	k_printf("   *        The C kernel has been loaded.         *");
-	k_printf("   *                                              *");
-	k_printf("   ************************************************");
+	ClrScr (0x13);
+	GotoXY (0,0);
+	SetColor (0x12);
+
+	Puts ("\n		     zygote OS v0.01\n");
+	SetColor (0x17);
+	Puts ("Enabled A20!\n\n");
+	Puts ("Initialized GDT and IDT!\n\n");
+	Puts ("Installed PIC, PIT, and exception handlers!\n\n");
+	Printf ("Cpu vender: %s \n\n", get_cpu_vender ());
+	Puts ("Hitting any key will fire the default handlers \n");
+
 	
 	//To test divide by zero exception
 	//i = 10/0;
+	for(;;) {
+	}
 	
-	for(;;);
-		//k_printf("in loop");
 };
 
