@@ -42,7 +42,7 @@ Reset1:
 
 Read1:
         mov             ah, 0x02                                ; function 2
-        mov             al, 20                                  ; read 10 sector
+        mov             al, 40                                  ; read 40 sector
         mov             ch, 0                                   ; we are reading the second sector past us, so its still on track 1
         mov             cl, 4                                   ; sector to read (From fourth sector)
         mov             dh, 0                                   ; head number

@@ -30,15 +30,19 @@ void i86_cpu_shutdown () {
 }
 char* i86_cpu_get_vender () {
 
-	static char	vender[32] = {0};
+	static char	str[32] = {0};
+	char str1[4] = {0};
+	char str2[4] = {0};
+	asm("mov $0x0, %eax");
+	asm("cpuid");
+	asm("mov %%ebx, %0\n"
+	    "mov %%edx, %1\n"
+	    "mov %%ecx, %2\n"
+	    :"=m"(str),"=m"(str1),"=m"(str2));
+	strcpy(str+4,str1);
+	strcpy(str+8,str2);	
+	str[12] = '\0';
 
-/*	_asm {
-		mov		eax, 0
-		cpuid
-		mov		dword ptr [vender], ebx
-		mov		dword ptr [vender+4], edx
-		mov		dword ptr [vender+8], ecx
-	}*/
-
-	return vender;
+	return str;
 }
+

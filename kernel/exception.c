@@ -17,7 +17,7 @@
 void divide_by_zero_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Divide by 0");
+	Puts ("Exception : Divide by 0");
 	for (;;);
 }
 
@@ -25,7 +25,7 @@ void divide_by_zero_fault (unsigned int cs, unsigned int eip, unsigned int eflag
 void single_step_trap (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Single step");
+	Puts ("Exception : Single step");
 	for (;;);
 }
 
@@ -33,7 +33,7 @@ void single_step_trap (unsigned int cs, unsigned int eip, unsigned int eflags) {
 void nmi_trap (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : NMI trap");
+	Puts ("Exception : NMI trap");
 	for (;;);
 }
 
@@ -41,7 +41,7 @@ void nmi_trap (unsigned int cs, unsigned int eip, unsigned int eflags) {
 void  breakpoint_trap (unsigned int cs,unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Breakpoint trap");
+	Puts ("Exception : Breakpoint trap");
 	for (;;);
 }
 
@@ -49,7 +49,7 @@ void  breakpoint_trap (unsigned int cs,unsigned int eip, unsigned int eflags) {
 void overflow_trap (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Overflow trap");
+	Puts ("Exception : Overflow trap");
 	for (;;);
 }
 
@@ -57,7 +57,7 @@ void overflow_trap (unsigned int cs, unsigned int eip, unsigned int eflags) {
 void bounds_check_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Bounds check fault");
+	Puts ("Exception : Bounds check fault");
 	for (;;);
 }
 
@@ -65,7 +65,7 @@ void bounds_check_fault (unsigned int cs, unsigned int eip, unsigned int eflags)
 void invalid_opcode_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Invalid opcode");
+	Puts ("Exception : Invalid opcode");
 	for (;;);
 }
 
@@ -73,7 +73,7 @@ void invalid_opcode_fault (unsigned int cs, unsigned int eip, unsigned int eflag
 void no_device_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Device not found");
+	Puts ("Exception : Device not found");
 	for (;;);
 }
 
@@ -81,7 +81,7 @@ void no_device_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 void double_fault_abort (unsigned int cs, unsigned int err, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Double fault");
+	Puts ("Exception : Double fault");
 	for (;;);
 }
 
@@ -89,7 +89,7 @@ void double_fault_abort (unsigned int cs, unsigned int err, unsigned int eip, un
 void invalid_tss_fault (unsigned int cs,unsigned int err,  unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Invalid TSS");
+	Puts ("Exception : Invalid TSS");
 	for (;;);
 }
 
@@ -97,7 +97,7 @@ void invalid_tss_fault (unsigned int cs,unsigned int err,  unsigned int eip, uns
 void no_segment_fault (unsigned int cs,unsigned int err,  unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Invalid segment");
+	Puts ("Exception : Invalid segment");
 	for (;;);
 }
 
@@ -105,7 +105,7 @@ void no_segment_fault (unsigned int cs,unsigned int err,  unsigned int eip, unsi
 void stack_fault ( unsigned int cs,unsigned int err, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Stack fault");
+	Puts ("Exception : Stack fault");
 	for (;;);
 }
 
@@ -113,7 +113,7 @@ void stack_fault ( unsigned int cs,unsigned int err, unsigned int eip, unsigned 
 void general_protection_fault (unsigned int cs,unsigned int err, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : General Protection Fault");
+	Puts ("Exception : General Protection Fault");
 	for (;;);
 }
 
@@ -121,7 +121,7 @@ void general_protection_fault (unsigned int cs,unsigned int err, unsigned int ei
 void page_fault (unsigned int cs,unsigned int err, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Page Fault");
+	Puts ("Exception : Page Fault");
 	for (;;);
 }
 
@@ -129,7 +129,7 @@ void page_fault (unsigned int cs,unsigned int err, unsigned int eip, unsigned in
 void fpu_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : FPU Fault");
+	Puts ("Exception : FPU Fault");
 	for (;;);
 }
 
@@ -137,7 +137,7 @@ void fpu_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 void alignment_check_fault (unsigned int cs,unsigned int err, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Alignment Check");
+	Puts ("Exception : Alignment Check");
 	for (;;);
 }
 
@@ -145,7 +145,7 @@ void alignment_check_fault (unsigned int cs,unsigned int err, unsigned int eip, 
 void machine_check_abort (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : Machine Check");
+	Puts ("Exception : Machine Check");
 	for (;;);
 }
 
@@ -153,6 +153,6 @@ void machine_check_abort (unsigned int cs, unsigned int eip, unsigned int eflags
 void simd_fpu_fault (unsigned int cs, unsigned int eip, unsigned int eflags) {
 
 //	intstart ();
-	k_printf ("Exception : FPU SIMD fault");
+	Puts ("Exception : FPU SIMD fault");
 	for (;;);
 }
