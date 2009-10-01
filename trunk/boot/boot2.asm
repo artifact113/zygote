@@ -14,20 +14,48 @@ bits 16					; we are still in real mode
 
 jmp smain				; jump to main
 
+;*******************************************************
+;       Preprocessor directives
+;*******************************************************
+
+%include "boot/stdio.inc"                       ; basic i/o routines
+%include "boot/gdt.inc"                 ; Gdt routines
+%include "boot/A20.inc"
+%include "boot/memory.inc"
+
+
 ;*************************************************;
 ;       Data Section
 ;************************************************;
 
 LoadingMsg      db      "Preparing to load operating system...",13,10,0
 
+boot_info:
+    istruc multiboot_info
+	at multiboot_info.flags, 			dd 0 
+	at multiboot_info.memoryLo,			dd 0
+	at multiboot_info.memoryHi,			dd 0
+	at multiboot_info.bootDevice,			dd 0
+	at multiboot_info.cmdLine,			dd 0
+	at multiboot_info.mods_count,			dd 0
+	at multiboot_info.mods_addr,			dd 0
+	at multiboot_info.syms0,			dd 0
+	at multiboot_info.syms1,			dd 0
+	at multiboot_info.syms2,			dd 0
+	at multiboot_info.mmap_length,			dd 0
+	at multiboot_info.mmap_addr,			dd 0
+	at multiboot_info.drives_length,		dd 0
+	at multiboot_info.drives_addr,			dd 0
+	at multiboot_info.config_table,			dd 0
+	at multiboot_info.bootloader_name,		dd 0
+	at multiboot_info.apm_table,			dd 0
+	at multiboot_info.vbe_control_info,		dd 0
+	at multiboot_info.vbe_mode_info,		dw 0
+	at multiboot_info.vbe_interface_seg,		dw 0
+	at multiboot_info.vbe_interface_off,		dw 0
+	at multiboot_info.vbe_interface_len,		dw 0
 
-;*******************************************************
-;	Preprocessor directives
-;*******************************************************
-
-%include "boot/stdio.inc"			; basic i/o routines
-%include "boot/gdt.inc"			; Gdt routines
-%include "boot/A20.inc"
+    iend
 
 ;*************************************************;
 ;	Second Stage Loader Entry Point
@@ -67,6 +95,7 @@ smain:
 	mov	sp, 0xFFFF
 	sti				; enable interrupts
 
+	mov     [boot_info+multiboot_info.bootDevice], dl
 	;-------------------------------;
 	;   Print loading message	;
 	;-------------------------------;
@@ -86,6 +115,17 @@ smain:
 
 	call	EnableA20_SysControlA
 
+	xor		eax, eax
+	xor		ebx, ebx
+	call		BiosGetMemorySize64MB
+
+	mov		word [boot_info+multiboot_info.memoryHi], bx
+	mov		word [boot_info+multiboot_info.memoryLo], ax
+
+	mov		eax, 0x0
+	mov		ds, ax
+	mov		di, 0x1000
+	call		BiosGetMemoryMap
 
         call Reset1
 
@@ -131,6 +171,8 @@ Stage3:
 	;mov		ebx, msg
 	;call		Puts32
 
+	push		dword boot_info
+
 	jmp CODE_DESC:0x8000	;jump to the C main
 
 msg db  0x0A, 0x0A, 0x0A, "               <[ Zygote OS 0.01 ]>"
@@ -138,4 +180,3 @@ msg db  0x0A, 0x0A, 0x0A, "               <[ Zygote OS 0.01 ]>"
 
 
 times 1024 - ($ - $$) db 0
-

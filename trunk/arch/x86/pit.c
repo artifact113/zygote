@@ -55,8 +55,8 @@ void i86_pit_irq () {
 
 	//! increment tick count
 	_pit_ticks++;
-                GotoXY (0,16);
-                Printf ("Current tick count: %i", get_tick_count());
+                //GotoXY (0,22);
+                //Printf ("Current tick count: %i", get_tick_count());
 	//! tell hal we are done
 	interruptdone(0);
 
